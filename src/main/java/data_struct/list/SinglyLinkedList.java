@@ -1,4 +1,4 @@
-package data_struct;
+package data_struct.list;
 
 //lista simplesmente encadeada
 public class SinglyLinkedList<T extends Comparable<T>> {
@@ -30,10 +30,13 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     //atributo
     private Node<T> head;
+    private Node<T> tail;
+
 
     //construtor da lista(vazia)
     public SinglyLinkedList(){
         this.head = null;
+        this.tail = null;
     }
 
     public T getHeadData(){
@@ -47,38 +50,39 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     }
 
     //insere no início da lista
-    public void insertInFront(T data){
-       head = new Node<>(data, head);
+    public void insertInFront(T newData){
+       head = new Node<>(newData, head);
+       if(tail == null){
+           tail = head;
+       }
     }
 
     //insere no final da lista
-    public void insertToBack(T data){
+    public void insertToBack(T newData){
         if(isEmpty()) {
-            insertInFront(data);
+            insertInFront(newData);
             return;
         }
-        Node<T> current = head;
-        while(current.next != null){
-            current = current.next;
-        }
-        current.next = new Node<>(data);
+        Node<T> newNode = new Node<>(newData, null);
+        tail.next = newNode;
+        tail = newNode;
     }
 
     //insere no meio - lista ordenada
     public void insertSorted(T newData){
-        if(isEmpty()){
-            head = new Node<>(newData);
+        if(isEmpty() || head.data.compareTo(newData) >= 0){
+            insertInFront(newData);
             return;
         }
-        if(head.data.compareTo(newData) > 0){
-            insertInFront(newData);
+        if(tail.data.compareTo(newData) <= 0){
+            insertToBack(newData);
             return;
         }
 
         Node<T> current = head;
         Node<T> previous = null;
         while(current != null){
-            if(current.data.compareTo(newData) > 0){
+            if(current.data.compareTo(newData) >= 0){
                 previous.next = new Node<>(newData, current);
                 return;
             }
@@ -105,6 +109,9 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     public boolean deleteFromFront(){
         if(isEmpty()) return false;
         head = head.next;
+        if(head == null){
+            tail = null;
+        }
         return true;
     }
 
@@ -127,12 +134,17 @@ public class SinglyLinkedList<T extends Comparable<T>> {
             previous = current;
             current = current.next;
         }
+        if(current == tail){
+            tail = previous;
+        }
+
         return false;
     }
 
     //destroi a lista
     public void clear(){
         head = null;
+        tail = null;
     }
 
     //imprime os dados da lista

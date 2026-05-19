@@ -1,4 +1,4 @@
-package data_struct;
+package data_struct.array;
 import java.util.function.Consumer;
 
 //utiliza como exemplo um array de inteiros

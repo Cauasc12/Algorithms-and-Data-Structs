@@ -1,13 +1,13 @@
-package data_struct;
+package data_struct.stack;
 import java.util.EmptyStackException;
 
-public class StackArray<T> {
+public class StackStaticArray<T> {
 
     private Object[] stackArray;
     private int top;
     private int capacity;
 
-    public StackArray(int capacity){
+    public StackStaticArray(int capacity){
         this.capacity = capacity;
         stackArray = new Object[capacity];
         this.top = -1;

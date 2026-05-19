@@ -1,4 +1,4 @@
-package data_struct;
+package data_struct.stack;
 
 
 public class StackDinamicArray {

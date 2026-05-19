@@ -1,8 +1,10 @@
 package algorithm;
 
+//algorítmos de busca simples
+
 public class Search {
 
-
+    //busca linear para listas não ordenadas - retorna o íncdice do elemento
     public int unsortedLinearSearch(int[] array, int target){
         for(int i = 0; i < array.length; i++){
             if(array[i] == target) return i;

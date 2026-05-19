@@ -1,4 +1,6 @@
-package data_struct;
+package data_struct.stack;
+import data_struct.list.SinglyLinkedList;
+
 import java.util.EmptyStackException;
 
 //faz composição com a classe SinglyLinkedList

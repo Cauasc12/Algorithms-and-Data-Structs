@@ -1,8 +1,6 @@
 package application;
 
-import data_struct.StackLinkedList;
-
-
+import data_struct.stack.StackLinkedList;
 
 public class NumberConverter {
 
@@ -35,7 +33,7 @@ public class NumberConverter {
         while(decimal > 0){
             int reminder = decimal % 8;
             remainderStack.push(reminder);
-            decimal = decimal/2;
+            decimal = decimal/8;
         }
 
         String octary = "";
