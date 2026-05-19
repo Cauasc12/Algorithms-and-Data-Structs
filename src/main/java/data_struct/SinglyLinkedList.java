@@ -1,5 +1,6 @@
 package data_struct;
 
+//lista simplesmente encadeada
 public class SinglyLinkedList<T extends Comparable<T>> {
 
     //classe interna referênte aos nós

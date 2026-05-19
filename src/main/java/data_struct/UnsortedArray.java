@@ -3,6 +3,7 @@ import java.util.function.Consumer;
 
 //utiliza como exemplo um array de inteiros
 
+//arrays não ordenados
 public class UnsortedArray {
     private int[] array;
     private int size;

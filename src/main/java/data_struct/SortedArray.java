@@ -3,6 +3,7 @@ import java.util.function.Consumer;
 
 //utiliza como exemplo um array de inteiros
 
+//arrays ordenados
 public class SortedArray {
     private int[] array;
     private int size;
