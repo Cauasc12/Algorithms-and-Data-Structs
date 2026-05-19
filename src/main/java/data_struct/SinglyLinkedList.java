@@ -36,6 +36,11 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         this.head = null;
     }
 
+    public T getHeadData(){
+        if(isEmpty()) return null;
+        return head.data;
+    }
+
     //testa se a lista está vazia
     public boolean isEmpty(){
         return head == null;
@@ -126,8 +131,23 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     }
 
     //destroi a lista
-    public void destruct(){
+    public void clear(){
         head = null;
+    }
+
+    //imprime os dados da lista
+    public void print(){
+        if(isEmpty()){
+            System.out.println("Lista vazia!");
+            return;
+        }
+        Node<T> current = head;
+        System.out.println("Estrutura da lista:");
+        while(current != null){
+            System.out.println("[" + current.data + "] ->");
+            current = current.next;
+        }
+        System.out.println("null");
     }
 
 }
