@@ -18,12 +18,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         Node(T data){
             this(data,null);
         }
-
-        //testa se tem um próximo nó
-        boolean hasNext(){
-            if(this.next != null) return true;
-            else return false;
-        }
     }
 
     //classe principal
@@ -39,9 +33,16 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         this.tail = null;
     }
 
+    //retorna a informação do head
     public T getHeadData(){
         if(isEmpty()) return null;
         return head.data;
+    }
+
+    //retorna a informação do tail
+    public T getTailData(){
+        if(isEmpty()) return null;
+        return tail.data;
     }
 
     //testa se a lista está vazia
@@ -70,7 +71,11 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     //insere no meio - lista ordenada
     public void insertSorted(T newData){
-        if(isEmpty() || head.data.compareTo(newData) >= 0){
+        if(isEmpty()){
+            insertInFront(newData);
+            return;
+        }
+        if(head.data.compareTo(newData) >= 0){
             insertInFront(newData);
             return;
         }
@@ -126,18 +131,17 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         Node<T> current = head;
         Node<T> previous = null;
 
-        while(current != null){
-            if(current.data.equals(target)){
+        while(current != null) {
+            if (current.data.equals(target)) {
                 previous.next = current.next;
+                if (current == tail) {
+                    tail = previous;
+                }
                 return true;
             }
             previous = current;
             current = current.next;
         }
-        if(current == tail){
-            tail = previous;
-        }
-
         return false;
     }
 
