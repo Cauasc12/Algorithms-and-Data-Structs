@@ -1,20 +1,18 @@
 package data_struct.array;
 import java.util.function.Consumer;
 
-//utiliza como exemplo um array de inteiros
-
 //arrays não ordenados
-public class UnsortedArray {
-    private int[] array;
+public class UnsortedArray<T extends Comparable<T>> {
+    private T[] array;
     private int size;
 
     public UnsortedArray(int maxSize){
-        this.array = new int[maxSize];
+        this.array = (T[]) new Comparable[maxSize];
         this.size = 0;
     }
 
     //inserção no final do array
-    public void insert(int value){
+    public void insert(T value){
         if(size >= array.length){
             throw new IllegalStateException("Capacidade máxima do array excedida.");
         }
@@ -39,7 +37,7 @@ public class UnsortedArray {
     }
 
     //deleção através do valor
-    public boolean deleteByValue(int target){
+    public boolean deleteByValue(T target){
         int index = find(target);
         if(index == -1) return false;
 
@@ -48,9 +46,9 @@ public class UnsortedArray {
     }
 
     //busca por valor específico (busca linear)
-    public int find(int target){
+    public int find(T target){
         for(int i = 0; i < size; i++){
-            if(array[i] == target){
+            if(array[i].equals(target)){
                 return i;
             }
         }
@@ -58,20 +56,20 @@ public class UnsortedArray {
     }
 
     //varredura do array
-    public void traverse(Consumer<Integer> action){
+    public void traverse(Consumer<T> action){
         for(int i = 0; i < size; i++){
             action.accept(array[i]);
         }
     }
 
     //maior valor do array
-    public int maxInArray(){
+    public T maxInArray(){
         if(size == 0){
             throw new IllegalStateException("Array vazio.");
         }
-        int max = array[0];
+        T max = array[0];
         for(int i = 1; i < size; i++) {
-            if (array[i] > max) {
+            if (array[i].compareTo(max) > 0) {
                 max = array[i];
             }
         }
@@ -79,13 +77,13 @@ public class UnsortedArray {
     }
 
     //menor valor do array
-    public int minInArray(){
+    public T minInArray(){
         if(size == 0){
             throw new IllegalStateException("Array vazio.");
         }
-        int min = array[0];
+        T min = array[0];
         for (int i = 1; i< size; i++){
-            if (array[i] < min){
+            if (array[i].compareTo(min) < 0){
                 min = array[i];
             }
         }
