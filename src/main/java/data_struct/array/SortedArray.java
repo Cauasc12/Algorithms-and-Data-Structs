@@ -26,30 +26,44 @@ public class SortedArray<T extends Comparable<T>> {
         }
         array[0] = value;
         size++;
+        array[size] = null;
     }
 
     //deleção pelo valor do elemento
     public boolean deleteByValue(T value){
+        if(size == 0){
+            throw new IllegalStateException("Array vazio.");
+        }
         int index = binarySearch(value);
-        if(index == -1) return false;
+        if(index == -1){
+            return false;
+        }
 
-        deleteByIndex(index);
-        return true;
+        return deleteByIndex(index);
     }
 
     //deleção pelo index do elemento
-    public void deleteByIndex(int index){
+    public boolean deleteByIndex(int index){
+        if(size == 0){
+            throw new IllegalStateException("Array vazio.");
+        }
+        if(index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
+        }
+
         for(int i = index; i < size-1; i++){
             array[i] = array[i+1];
         }
         size--;
+        array[size] = null;
+        return true;
     }
 
     //busca linear - retorna o indice do elemento
     public int linearSearch(T target){
         for(int i = 0; i < size; i++){
             if(array[i].equals(target)) return i;
-            else if(array[i].compareTo(target) < 0) return -1;
+            else if(array[i].compareTo(target) > 0) return -1;
         }
         return -1;
     }
@@ -61,10 +75,10 @@ public class SortedArray<T extends Comparable<T>> {
         while(left <= right){
             int midIndex = (left + right) / 2;
             if(array[midIndex].equals(target)) return midIndex;
-            else if(array[midIndex].compareTo(target) < 0) {
+            else if(array[midIndex].compareTo(target) > 0) {
                 right = midIndex - 1;
             }
-            else if(array[midIndex].compareTo(target) > 0){
+            else if(array[midIndex].compareTo(target) < 0){
                 left = midIndex + 1;
             }
         }
@@ -81,7 +95,7 @@ public class SortedArray<T extends Comparable<T>> {
             int midIndex = (left + right) / 2;
             if(array[midIndex].equals(target)){
                 result = midIndex;
-                right = midIndex -1;
+                right = midIndex - 1;
             }
             else if(array[midIndex].compareTo(target) > 0) {
                 right = midIndex - 1;

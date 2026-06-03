@@ -2,11 +2,11 @@ package data_struct.array;
 import java.util.function.Consumer;
 
 //arrays não ordenados
-public class UnsortedArray<T extends Comparable<T>> {
+public class Array<T extends Comparable<T>> {
     private T[] array;
     private int size;
 
-    public UnsortedArray(int maxSize){
+    public Array(int maxSize){
         this.array = (T[]) new Comparable[maxSize];
         this.size = 0;
     }
@@ -23,7 +23,7 @@ public class UnsortedArray<T extends Comparable<T>> {
     }
 
     //deleção através do índice
-    public void deleteByIndex(int index){
+    public boolean deleteByIndex(int index){
         if(size == 0){
             throw new IllegalStateException("Array vazio.");
         }
@@ -33,16 +33,22 @@ public class UnsortedArray<T extends Comparable<T>> {
         else{
             array[index] = array[size-1];
             size--;
+            array[size] = null;
+            return true;
         }
     }
 
     //deleção através do valor
     public boolean deleteByValue(T target){
+        if(size == 0){
+            throw new IllegalStateException("Array vazio.");
+        }
         int index = find(target);
-        if(index == -1) return false;
+        if(index == -1){
+            return false;
+        }
 
-        deleteByIndex(index);
-        return true;
+        return deleteByIndex(index);
     }
 
     //busca por valor específico (busca linear)
@@ -89,4 +95,5 @@ public class UnsortedArray<T extends Comparable<T>> {
         }
         return min;
     }
+
 }
