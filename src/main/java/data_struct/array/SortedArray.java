@@ -26,7 +26,6 @@ public class SortedArray<T extends Comparable<T>> {
         }
         array[0] = value;
         size++;
-        array[size] = null;
     }
 
     //deleção pelo valor do elemento

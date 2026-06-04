@@ -1,23 +1,22 @@
-package algorithm;
-
-//utilizou-se arrays de inteiro para fins de exemplo
+package algorithm.generic;
 
 //algorítmos de ordenação/classificação  recursivos
-public class RecursiveSorting {
+public class RecursiveSorting<T extends Comparable<T>> {
 
     //quicksort
-    public static void quickSort(int[] array){
+    public static <T extends Comparable<T>> void quickSort(T[] array){
         quickSort(array, 0, array.length-1);
     }
-    private static void quickSort(int[] array, int esq, int dir){
+
+    private static <T extends Comparable<T>> void quickSort(T[] array, int esq, int dir){
         int i = esq;
         int j = dir;
-        int temp;
+        T temp;
         int pivo = (esq + dir) / 2;
 
         do{
-            while(array[i] < pivo) i++;
-            while(array[j] > pivo) j--;
+            while(array[i].compareTo(array[pivo]) < 0) i++;
+            while(array[j].compareTo(array[pivo]) > 0) j--;
             if(i <= j){
                 temp = array[i];
                 array[i] = array[j];
@@ -26,6 +25,7 @@ public class RecursiveSorting {
                 j--;
             }
         }while(i <= j);
+
         if(esq < j){
             quickSort(array, esq, j);
         }
@@ -35,26 +35,24 @@ public class RecursiveSorting {
     }
 
     //mergesort
-    public static void mergeSort(int[] array, int esq, int dir){
+    public static  <T extends Comparable<T>> void mergeSort(T[] array, T[] vAux, int esq, int dir){
         if(esq < dir){
             int meio = (esq + dir) / 2;
 
-            mergeSort(array, esq, meio);
-            mergeSort(array, meio+1, dir);
+            mergeSort(array, vAux, esq, meio);
+            mergeSort(array, vAux , meio+1, dir);
 
-            merge(array, esq, meio, dir);
+            merge(array, vAux, esq, meio, dir);
         }
 
     }
-    private static void merge(int[] array, int esq, int meio, int dir){
+    private static  <T extends Comparable<T>> void merge(T[] array, T[] vAux,  int esq, int meio, int dir){
         int i = esq;
         int j = meio+1;
         int k = 0;
 
-        int[] vAux = new int[dir-esq+1];
-
         while(i <= meio && j <= dir){
-            if(array[i] < array[j]){
+            if(array[i].compareTo(array[j]) < 0){
                 vAux[k] = array[i];
                 i++;
             }
@@ -76,7 +74,7 @@ public class RecursiveSorting {
         }
 
         for(i = esq, k = 0; i <= dir; i++, k++ ){
-            array[i] = vAux[j];
+            array[i] = vAux[k];
         }
     }
 }

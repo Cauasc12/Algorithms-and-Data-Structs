@@ -1,21 +1,21 @@
 package data_struct.array;
 import java.util.function.Consumer;
 
-//arrays dinamicos(mantem a ordem de inserção)
-public class DinamicArray<T extends Comparable<T>> {
+//arrays dinamicos(mantém a ordem de inserção)
+public class DynamicArray<T extends Comparable<T>> {
 
     private T[] array;
     private int size;
     private int capacity;
 
     //construtor com a capacidade inicial informada
-    public DinamicArray(int initialCapacity){
+    public DynamicArray(int initialCapacity){
         this.array = (T[]) new Comparable[initialCapacity];
         this.capacity = initialCapacity;
         this.size = 0;
     }
     //construtor sem a capacidade inicial informada(padrão = 1)
-    public DinamicArray(){
+    public DynamicArray(){
         this.array = (T[]) new Comparable[1];
         this.capacity = 1;
         this.size = 0;
