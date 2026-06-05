@@ -4,10 +4,12 @@ import java.util.function.Consumer;
 //arrays dinamicos(mantém a ordem de inserção)
 public class DynamicArray<T extends Comparable<T>> {
 
+    //ATRIBUTOS
     private T[] array;
     private int size;
     private int capacity;
 
+    //CONSTRUTORES
     //construtor com a capacidade inicial informada
     public DynamicArray(int initialCapacity){
         this.array = (T[]) new Comparable[initialCapacity];
@@ -19,6 +21,30 @@ public class DynamicArray<T extends Comparable<T>> {
         this.array = (T[]) new Comparable[1];
         this.capacity = 1;
         this.size = 0;
+    }
+
+    //GETTERS
+    public T get(int index){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
+        }
+        return array[index];
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
+    public int getCapacity(){
+        return this.capacity;
+    }
+
+    //MÉTODOS
+    public boolean isEmpty(){
+        return this.size == 0;
     }
 
     //dobra a capacidade do array
@@ -34,11 +60,11 @@ public class DynamicArray<T extends Comparable<T>> {
     }
 
     //inserção
-    public void insert(T value){
+    public void insert(T newData){
         if(size >= capacity){
             doubleCapacity();
         }
-        array[size] = value;
+        array[size] = newData;
         size++;
     }
 
@@ -69,7 +95,7 @@ public class DynamicArray<T extends Comparable<T>> {
 
     //deleção pelo valor preservando a ordem da inserção
     public boolean deleteByValue(T target){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         int index = find(target);
@@ -81,7 +107,7 @@ public class DynamicArray<T extends Comparable<T>> {
 
     //deleção pelo indice preservando a ordem da inserção
     public boolean deleteByIndexSorted(int index){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         if(index < 0 || index >= size){
@@ -100,7 +126,7 @@ public class DynamicArray<T extends Comparable<T>> {
 
     //deleção pelo indice sem preservar a ordem da inserção
     public boolean deleteByIndexUnsorted(int index){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         if(index < 0 || index >= size){
@@ -119,5 +145,34 @@ public class DynamicArray<T extends Comparable<T>> {
             action.accept(array[i]);
         }
     }
+
+    //maior valor do array
+    public T maxInArray(){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        T max = array[0];
+        for(int i = 1; i < size; i++) {
+            if (array[i].compareTo(max) > 0) {
+                max = array[i];
+            }
+        }
+        return max;
+    }
+
+    //menor valor do array
+    public T minInArray(){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        T min = array[0];
+        for (int i = 1; i< size; i++){
+            if (array[i].compareTo(min) < 0){
+                min = array[i];
+            }
+        }
+        return min;
+    }
+
 
 }

@@ -3,28 +3,51 @@ import java.util.function.Consumer;
 
 //arrays não ordenados
 public class Array<T extends Comparable<T>> {
+
+    //ATRIBUTOS
     private T[] array;
     private int size;
 
+    //CONSTRUTORES
     public Array(int maxSize){
         this.array = (T[]) new Comparable[maxSize];
         this.size = 0;
     }
 
+    //GETTERS
+    public T get(int index){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
+        }
+        return array[index];
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
+    //MÉTODOS
+    public boolean isEmpty(){
+        return this.size == 0;
+    }
+
     //inserção no final do array
-    public void insert(T value){
+    public void insert(T newData){
         if(size >= array.length){
             throw new IllegalStateException("Capacidade máxima do array excedida.");
         }
         else{
-            array[size] = value;
+            array[size] = newData;
             size++;
         }
     }
 
     //deleção através do índice
     public boolean deleteByIndex(int index){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         else if(index < 0 || index >= size){
@@ -40,7 +63,7 @@ public class Array<T extends Comparable<T>> {
 
     //deleção através do valor
     public boolean deleteByValue(T target){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         int index = find(target);
@@ -70,7 +93,7 @@ public class Array<T extends Comparable<T>> {
 
     //maior valor do array
     public T maxInArray(){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         T max = array[0];
@@ -84,7 +107,7 @@ public class Array<T extends Comparable<T>> {
 
     //menor valor do array
     public T minInArray(){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         T min = array[0];

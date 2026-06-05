@@ -3,37 +3,58 @@ import java.util.function.Consumer;
 
 //arrays ordenados
 public class SortedArray<T extends Comparable<T>> {
+
+    //ATRIBUTOS
     private T[] array;
     private int size;
 
+    //CONSTRUTORES
     public SortedArray(int maxSize){
         this.array = (T[]) new Comparable[maxSize];
         this.size = 0;
     }
 
+    //GETTERS
+    public T get(int index){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
+        }
+        return array[index];
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
+    //MÉTODOS
+    public boolean isEmpty(){
+        return this.size == 0;
+    }
+
     //inserção de um novo valor
-    public void insert(T value){
+    public void insert(T newData){
         if(size >= array.length){
             throw new IllegalStateException("Capacidade máxima do array excedida.");
         }
-        for(int i = size; i > 0; i--){
-            if(array[i-1].compareTo(value) <= 0){
-                array[i] = value;
-                size++;
-                return;
-            }
-            else array[i] = array[i-1];
+
+        int i = size-1;
+        while(i <= 0 && array[i].compareTo(newData) > 0){
+            array[i+1] = array[i];
+            i--;
         }
-        array[0] = value;
+        array[i+1] = newData;
         size++;
     }
 
     //deleção pelo valor do elemento
-    public boolean deleteByValue(T value){
-        if(size == 0){
+    public boolean deleteByValue(T target){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
-        int index = binarySearch(value);
+        int index = binarySearch(target);
         if(index == -1){
             return false;
         }
@@ -43,7 +64,7 @@ public class SortedArray<T extends Comparable<T>> {
 
     //deleção pelo index do elemento
     public boolean deleteByIndex(int index){
-        if(size == 0){
+        if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         if(index < 0 || index >= size) {
@@ -104,7 +125,6 @@ public class SortedArray<T extends Comparable<T>> {
             }
         }
         return result;
-
     }
 
     //varredura do array
@@ -112,6 +132,22 @@ public class SortedArray<T extends Comparable<T>> {
         for(int i = 0; i < size; i++){
             action.accept(array[i]);
         }
+    }
+
+    //maior valor do array
+    public T maxInArray(){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        return array[size - 1];
+    }
+
+    //menor valor do array
+    public T minInArray(){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        return array[0];
     }
 
 }
