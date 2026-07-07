@@ -25,6 +25,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     //atributo
     private Node<T> head;
     private Node<T> tail;
+    private int size;
 
 
     //construtor da lista(vazia)
@@ -45,6 +46,10 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return tail.data;
     }
 
+    public int getSize(){
+        return this.size;
+    }
+
     //testa se a lista está vazia
     public boolean isEmpty(){
         return head == null;
@@ -56,6 +61,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
        if(tail == null){
            tail = head;
        }
+       size++;
     }
 
     //insere no final da lista
@@ -67,6 +73,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         Node<T> newNode = new Node<>(newData, null);
         tail.next = newNode;
         tail = newNode;
+        size++;
     }
 
     //insere no meio - lista ordenada
@@ -89,13 +96,12 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         while(current != null){
             if(current.data.compareTo(newData) >= 0){
                 previous.next = new Node<>(newData, current);
+                size++;
                 return;
             }
             previous = current;
             current = current.next;
         }
-        previous.next = new Node<>(newData);
-
     }
 
     //busca o elemento desejado(busca linear) retorna o nó correspondente
@@ -117,6 +123,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         if(head == null){
             tail = null;
         }
+        size--;
         return true;
     }
 
@@ -137,6 +144,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
                 if (current == tail) {
                     tail = previous;
                 }
+                size--;
                 return true;
             }
             previous = current;
@@ -149,6 +157,7 @@ public class SinglyLinkedList<T extends Comparable<T>> {
     public void clear(){
         head = null;
         tail = null;
+        size = 0;
     }
 
     //imprime os dados da lista

@@ -8,7 +8,7 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         private Node<T> next;
         private Node<T> prev;
 
-        //construtor de 2 argumentos
+        //construtor de 3 argumentos
         Node(T data, Node<T> next, Node<T> prev){
             this.data = data;
             this.next = next;
@@ -23,13 +23,30 @@ public class DoublyLinkedList <T extends Comparable<T>>{
     //classe principal
 
     //atributo
-    Node<T> head;
-    Node<T> tail;
+    private Node<T> head;
+    private Node<T> tail;
+    private int size;
 
     //construtor da lista (vazia)
-    DoublyLinkedList(){
+    public DoublyLinkedList(){
         this.head = null;
         this.tail = null;
+    }
+
+    //retorna a informação do head
+    public T getHeadData(){
+        if(isEmpty()) return null;
+        return head.data;
+    }
+
+    //retorna a informação do tail
+    public T getTailData(){
+        if(isEmpty()) return null;
+        return tail.data;
+    }
+
+    public int getSize(){
+        return this.size;
     }
 
     //testa se a lista é vazia
@@ -47,6 +64,7 @@ public class DoublyLinkedList <T extends Comparable<T>>{
             head.prev = newNode;
         }
         head = newNode;
+        size++;
     }
 
     //insere no final da lista
@@ -58,10 +76,11 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         Node<T> newNode = new Node<>(newData, null, tail);
         tail.next = newNode;
         tail = newNode;
+        size++;
     }
 
     //insere no meio da lista - lista ordenada
-    public void insetSorted(T newData){
+    public void insertSorted(T newData){
         if(isEmpty()){
             insertInFront(newData);
             return;
@@ -81,15 +100,16 @@ public class DoublyLinkedList <T extends Comparable<T>>{
                 Node<T> newNode = new Node<>(newData, current, current.prev);
                 current.prev.next = newNode;
                 current.prev = newNode;
+                size++;
                 return;
             }
             current = current.next;
         }
-        current.prev.next = new Node<>(newData);
     }
 
     //insere após um nó especificado
-    public void insertAfterNode(Node<T> node, T newData){
+    public void insertAfterValue(T target, T newData){
+        Node<T> node = search(target);
         if(node == null) return;
         if(node == tail){
             insertToBack(newData);
@@ -98,6 +118,7 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         Node<T> newNode = new Node<>(newData, node.next, node);
         node.next.prev = newNode;
         node.next = newNode;
+        size++;
     }
 
     //busca o elemento desejado(busca linear) retorna o nó correspondente
@@ -112,7 +133,7 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         return null;
     }
 
-    public boolean deleteFromFront(T target){
+    public boolean deleteFromFront(){
         if(isEmpty()) return false;
         head = head.next;
         if(head != null){
@@ -121,6 +142,7 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         else{
             tail = null;
         }
+        size--;
         return true;
     }
 
@@ -131,15 +153,17 @@ public class DoublyLinkedList <T extends Comparable<T>>{
             return false;
         }
         if(node == head){
-            return deleteFromFront(target);
+            return deleteFromFront();
         }
         if(node == tail){
             tail = node.prev;
             tail.next = null;
+            size--;
             return true;
         }
         node.prev.next = node.next;
         node.next.prev = node.prev;
+        size--;
         return true;
     }
 
@@ -147,6 +171,22 @@ public class DoublyLinkedList <T extends Comparable<T>>{
     public void clear(){
         head = null;
         tail = null;
+        size = 0;
+    }
+
+    //imprime os dados da lista
+    public void print(){
+        if(isEmpty()){
+            System.out.println("Lista vazia!");
+            return;
+        }
+        Node<T> current = head;
+        System.out.println("Estrutura da lista:");
+        while(current != null){
+            System.out.println("[" + current.data + "] ->");
+            current = current.next;
+        }
+        System.out.println("null");
     }
 
 }

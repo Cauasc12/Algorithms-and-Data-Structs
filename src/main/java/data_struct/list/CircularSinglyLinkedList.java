@@ -24,10 +24,12 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
 
     //atributos
     private Node<T> tail;
+    private int size;
 
     //construtor - cria lista vazia
-    CircularSinglyLinkedList(){
+    public CircularSinglyLinkedList(){
         this.tail = null;
+        this.size = 0;
     }
 
     //retorna a informação do head
@@ -42,6 +44,10 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         return tail.data;
     }
 
+    public int getSize(){
+        return this.size;
+    }
+
     //teste se a lista está vaiz
     public boolean isEmpty(){
         return tail == null;
@@ -53,10 +59,12 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         if(isEmpty()){
             tail = newNode;
             tail.next = tail;
+            size++;
             return;
         }
         newNode.next = tail.next;
         tail.next = newNode;
+        size++;
     }
 
     //insere no final
@@ -91,6 +99,7 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         do{
             if(current.data.compareTo(newData) >= 0){
                 previous.next = new Node<>(newData, current);
+                size++;
                 return;
             }
             previous = current;
@@ -116,9 +125,11 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         if(isEmpty()) return false;
         if(tail.next == tail){
             tail = null;
+            size--;
             return true;
         }
         tail.next = tail.next.next;
+        size--;
         return true;
     }
 
@@ -133,11 +144,12 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         Node<T> current = tail.next;
         Node<T> previous = tail;
         do{
-            if(current.data.compareTo(target) == 0){
+            if(current.data.equals(target)){
                 previous.next = current.next;
                 if(current == tail){
                     tail = previous;
                 }
+                size--;
                 return true;
             }
             previous = current;
@@ -149,6 +161,7 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
 
     public void clear(){
         tail = null;
+        size = 0;
     }
 
     public void print(){
