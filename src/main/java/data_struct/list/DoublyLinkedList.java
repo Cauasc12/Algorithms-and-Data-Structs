@@ -8,38 +8,30 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         private Node<T> next;
         private Node<T> prev;
 
-        //construtor de 3 argumentos
         Node(T data, Node<T> next, Node<T> prev){
             this.data = data;
             this.next = next;
             this.prev = prev;
         }
-        //construtor de 1 argumento
         Node(T data){
             this(data, null, null);
         }
     }
 
-    //classe principal
-
-    //atributo
     private Node<T> head;
     private Node<T> tail;
     private int size;
 
-    //construtor da lista (vazia)
     public DoublyLinkedList(){
         this.head = null;
         this.tail = null;
     }
 
-    //retorna a informação do head
     public T getHeadData(){
         if(isEmpty()) return null;
         return head.data;
     }
 
-    //retorna a informação do tail
     public T getTailData(){
         if(isEmpty()) return null;
         return tail.data;
@@ -49,12 +41,10 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         return this.size;
     }
 
-    //testa se a lista é vazia
     public boolean isEmpty(){
         return head == null;
     }
 
-    //insere no início da lista
     public void insertInFront(T newData){
         Node<T> newNode = new Node<>(newData, head, null);
         if(isEmpty()){
@@ -67,7 +57,6 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         size++;
     }
 
-    //insere no final da lista
     public void insertToBack(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -79,7 +68,6 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         size++;
     }
 
-    //insere no meio da lista - lista ordenada
     public void insertSorted(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -107,7 +95,6 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         }
     }
 
-    //insere após um nó especificado
     public void insertAfterValue(T target, T newData){
         Node<T> node = search(target);
         if(node == null) return;
@@ -121,7 +108,6 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         size++;
     }
 
-    //busca o elemento desejado(busca linear) retorna o nó correspondente
     private Node<T> search(T target){
         Node<T> current = head;
         while(current != null){
@@ -146,7 +132,6 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         return true;
     }
 
-    //remove o elemento desejado
     public boolean delete(T target){
         Node<T> node = search(target);
         if(node == null){
@@ -167,14 +152,12 @@ public class DoublyLinkedList <T extends Comparable<T>>{
         return true;
     }
 
-    //destroi a lista
     public void clear(){
         head = null;
         tail = null;
         size = 0;
     }
 
-    //imprime os dados da lista
     public void print(){
         if(isEmpty()){
             System.out.println("Lista vazia!");

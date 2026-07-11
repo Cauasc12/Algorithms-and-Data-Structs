@@ -2,43 +2,33 @@ package data_struct.list;
 
 public class CircularSinglyLinkedList<T extends Comparable<T>> {
 
-    //classe interna referente ao nó
     private static class Node<T>{
 
-        //atributos
         private T data;
         private Node<T> next;
 
-        //construtor com 2 argumentos
         Node(T data, Node<T> next){
             this.data = data;
             this.next = next;
         }
-        //construtor com 1 argumento
         Node(T data){
             this(data, null);
         }
     }
 
-    //classe principal
-
-    //atributos
     private Node<T> tail;
     private int size;
 
-    //construtor - cria lista vazia
     public CircularSinglyLinkedList(){
         this.tail = null;
         this.size = 0;
     }
 
-    //retorna a informação do head
     public T getHeadData(){
         if(isEmpty()) return null;
         return tail.next.data;
     }
 
-    //retorna a informação do tail
     public T getTailData(){
         if(isEmpty()) return null;
         return tail.data;
@@ -48,12 +38,10 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         return this.size;
     }
 
-    //teste se a lista está vaiz
     public boolean isEmpty(){
         return tail == null;
     }
 
-    //insere na frente
     public void insertInFront(T newData){
         Node<T> newNode = new Node<>(newData);
         if(isEmpty()){
@@ -67,7 +55,6 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         size++;
     }
 
-    //insere no final
     public void insertToBack(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -78,7 +65,6 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         tail = newNode;
     }
 
-    //insere no meio - lista ordenada
     public void insertSorted(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -107,7 +93,6 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         }while(current != tail.next);
     }
 
-    //busca o elemento desejado(busca linear) retorna o nó correspondente
     private Node<T> search(T target){
         if(isEmpty()) return null;
         Node<T> current = tail.next;
@@ -120,7 +105,6 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         return null;
     }
 
-    //remove do início
     public boolean deleteFromFront(){
         if(isEmpty()) return false;
         if(tail.next == tail){
@@ -133,7 +117,6 @@ public class CircularSinglyLinkedList<T extends Comparable<T>> {
         return true;
     }
 
-    //remove o elemento desejado
     public boolean delete(T target){
         if(isEmpty()) return false;
 

@@ -1,4 +1,4 @@
-package application;
+package application.algorithm;
 
 public class SortingApplication {
 

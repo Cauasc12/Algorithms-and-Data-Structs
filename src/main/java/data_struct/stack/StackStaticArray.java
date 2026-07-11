@@ -1,15 +1,16 @@
 package data_struct.stack;
+
 import java.util.EmptyStackException;
 
 public class StackStaticArray<T> {
 
-    private Object[] stackArray;
+    private Object[] stack;
     private int top;
     private int capacity;
 
     public StackStaticArray(int capacity){
         this.capacity = capacity;
-        stackArray = new Object[capacity];
+        stack = new Object[capacity];
         this.top = -1;
     }
     public boolean isEmpty(){
@@ -20,7 +21,7 @@ public class StackStaticArray<T> {
         return top == capacity-1;
     }
 
-    public int size(){
+    public int getSize(){
         return top+1;
     }
 
@@ -28,28 +29,30 @@ public class StackStaticArray<T> {
         if(isFull()){
             throw new StackOverflowError("A pilha está cheia! Limite de " + capacity + " elementos atingido.");
         }
-        stackArray[++top] = newData;
+        top++;
+        stack[top] = newData;
     }
 
     public T pop(){
         if(isEmpty()){
             throw new EmptyStackException();
         }
-        T removedData = (T) stackArray[top];
-        stackArray[top--] = null;
-        return removedData;
+        T removed = (T) stack[top];
+        stack[top] = null;
+        top--;
+        return removed;
     }
 
     public T peek(){
         if(isEmpty()){
             throw new EmptyStackException();
         }
-        return (T) stackArray[top];
+        return (T) stack[top];
     }
 
     public void clear(){
-        for(int i = 0; i <= top; i++){
-            stackArray[i] = null;
+        while(!isEmpty()){
+            pop();
         }
         top = -1;
     }

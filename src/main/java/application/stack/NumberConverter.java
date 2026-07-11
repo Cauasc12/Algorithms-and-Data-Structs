@@ -1,4 +1,4 @@
-package application;
+package application.stack;
 
 import data_struct.stack.StackLinkedList;
 

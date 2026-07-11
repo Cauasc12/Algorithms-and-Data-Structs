@@ -5,26 +5,30 @@ import java.util.NoSuchElementException;
 
 public class QueueLinkedList<T extends Comparable<T>> {
 
-    private final SinglyLinkedList<T> internalList;
+    private final SinglyLinkedList<T> queue;
 
     public QueueLinkedList(){
-        internalList = new SinglyLinkedList<>();
+        queue = new SinglyLinkedList<>();
     }
 
     public boolean isEmpty(){
-        return internalList.isEmpty();
+        return queue.isEmpty();
+    }
+
+    public int getSize(){
+        return queue.getSize();
     }
 
     public void enqueue(T newData){
-        internalList.insertToBack(newData);
+        queue.insertToBack(newData);
     }
 
     public T dequeue(){
         if(isEmpty()){
             throw new NoSuchElementException("Erro: A fila está vazia.");
         }
-        T removedData = internalList.getHeadData();
-        internalList.deleteFromFront();
+        T removedData = queue.getHeadData();
+        queue.deleteFromFront();
         return removedData;
     }
 
@@ -32,7 +36,11 @@ public class QueueLinkedList<T extends Comparable<T>> {
         if(isEmpty()){
             throw new NoSuchElementException("Erro: A fila está vazia.");
         }
-        return internalList.getHeadData();
+        return queue.getHeadData();
+    }
+
+    public void clear(){
+        queue.clear();
     }
 
 

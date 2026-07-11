@@ -8,39 +8,31 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         private Node<T> next;
         private Node<T> prev;
 
-        //construtor de 3 argumentos
         Node(T data, Node<T> next, Node<T> prev){
             this.data = data;
             this.next = next;
             this.prev = prev;
         }
 
-        //construtor de 1 argumento
         Node(T data){
             this(data, null, null);
         }
 
     }
 
-    //classe principal
-
-    //atributos
     private Node<T> tail;
     private int size;
 
-    //construtor - cria lista vazia
     public CircularDoublyLinkedList(){
         this.tail = null;
         this.size = 0;
     }
 
-    //retorna a informação do head
     public T getHeadData(){
         if(isEmpty()) return null;
         return tail.next.data;
     }
 
-    //retorna a informação do tail
     public T getTailData(){
         if(isEmpty()) return null;
         return tail.data;
@@ -50,12 +42,10 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         return this.size;
     }
 
-    //testa se a lista é vazia
     public boolean isEmpty(){
         return tail == null;
     }
 
-    //insere no início da lista
     public void insertInFront(T newData) {
         Node<T> newNode = new Node<>(newData);
         if(isEmpty()) {
@@ -72,7 +62,6 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         size++;
     }
 
-    //insere no final
     public void insertToBack(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -85,7 +74,6 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         size++;
     }
 
-    //insere no meio - lista ordenada
     public void insertSorted(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -115,7 +103,6 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         } while(current != tail.next);
     }
 
-    //busca o elemento desejado(busca linear) retorna o nó correspondente
     private Node<T> search(T target){
         if(isEmpty()) return null;
         Node<T> current = tail.next;
@@ -128,7 +115,6 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         return null;
     }
 
-    //remove do inicio
     public boolean deleteFromFront(){
         if(isEmpty()) return false;
         if(tail.next == tail){
@@ -142,7 +128,6 @@ public class CircularDoublyLinkedList <T extends Comparable<T>> {
         return true;
     }
 
-    //remove o elemento desejado
     public boolean delete(T target){
         if(isEmpty()) return false;
         if(tail.next.data.equals(target)){

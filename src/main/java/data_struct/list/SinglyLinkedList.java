@@ -1,46 +1,36 @@
 package data_struct.list;
 
-//lista simplesmente encadeada
 public class SinglyLinkedList<T extends Comparable<T>> {
 
-    //classe interna referênte aos nós
     private static class Node<T>{
 
         private T data;
         private Node<T> next;
 
-        //construtor com 2 argumentos
         Node(T data, Node<T> nextNode){
             this.data = data;
             this.next = nextNode;
         }
-        //construtor com 1 argumento
         Node(T data){
             this(data,null);
         }
     }
 
-    //classe principal
 
-    //atributo
     private Node<T> head;
     private Node<T> tail;
     private int size;
 
-
-    //construtor da lista(vazia)
     public SinglyLinkedList(){
         this.head = null;
         this.tail = null;
     }
 
-    //retorna a informação do head
     public T getHeadData(){
         if(isEmpty()) return null;
         return head.data;
     }
 
-    //retorna a informação do tail
     public T getTailData(){
         if(isEmpty()) return null;
         return tail.data;
@@ -50,12 +40,10 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return this.size;
     }
 
-    //testa se a lista está vazia
     public boolean isEmpty(){
         return head == null;
     }
 
-    //insere no início da lista
     public void insertInFront(T newData){
        head = new Node<>(newData, head);
        if(tail == null){
@@ -64,7 +52,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
        size++;
     }
 
-    //insere no final da lista
     public void insertToBack(T newData){
         if(isEmpty()) {
             insertInFront(newData);
@@ -76,7 +63,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         size++;
     }
 
-    //insere no meio - lista ordenada
     public void insertSorted(T newData){
         if(isEmpty()){
             insertInFront(newData);
@@ -104,7 +90,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         }
     }
 
-    //busca o elemento desejado(busca linear) retorna o nó correspondente
     private Node<T> search(T target){
         Node<T> current = head;
         while(current != null){
@@ -116,7 +101,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return null;
     }
 
-    //deleta da frente(head)
     public boolean deleteFromFront(){
         if(isEmpty()) return false;
         head = head.next;
@@ -127,7 +111,6 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return true;
     }
 
-    //remove o elemento desejado
     public boolean delete(T target){
         if(isEmpty()) return false;
 
@@ -153,14 +136,12 @@ public class SinglyLinkedList<T extends Comparable<T>> {
         return false;
     }
 
-    //destroi a lista
     public void clear(){
         head = null;
         tail = null;
         size = 0;
     }
 
-    //imprime os dados da lista
     public void print(){
         if(isEmpty()){
             System.out.println("Lista vazia!");

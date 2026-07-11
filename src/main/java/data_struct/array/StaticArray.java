@@ -2,14 +2,14 @@ package data_struct.array;
 import java.util.function.Consumer;
 
 //arrays não ordenados
-public class Array<T extends Comparable<T>> {
+public class StaticArray<T extends Comparable<T>> {
 
     //ATRIBUTOS
     private T[] array;
     private int size;
 
     //CONSTRUTORES
-    public Array(int maxSize){
+    public StaticArray(int maxSize){
         this.array = (T[]) new Comparable[maxSize];
         this.size = 0;
     }
