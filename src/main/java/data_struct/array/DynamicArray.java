@@ -18,16 +18,6 @@ public class DynamicArray<T extends Comparable<T>> {
         this.size = 0;
     }
 
-    public T get(int index){
-        if(isEmpty()){
-            throw new IllegalStateException("Array vazio.");
-        }
-        if(index < 0 || index >= size){
-            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
-        }
-        return array[index];
-    }
-
     public int getSize(){
         return this.size;
     }
@@ -38,6 +28,28 @@ public class DynamicArray<T extends Comparable<T>> {
 
     public boolean isEmpty(){
         return this.size == 0;
+    }
+
+    public T get(int index){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
+        }
+        return array[index];
+    }
+
+    public void set(T newData, int index){
+        if(isEmpty()){
+            insert(newData);
+            return;
+        }
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
+        }
+        array[index] = newData;
+        size++;
     }
 
     private void doubleCapacity(){
@@ -82,25 +94,35 @@ public class DynamicArray<T extends Comparable<T>> {
         return -1;
     }
 
-    public boolean deleteByValue(T target){
+    public T delete(){
+        if(isEmpty()){
+            throw new IllegalStateException("Array vazio.");
+        }
+        T removed = array[size-1];
+        array[size-1] = null;
+        size--;
+        return removed;
+    }
+
+    public T deleteByValue(T target){
         if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         int index = find(target);
         if(index == -1){
-            return false;
+            return null;
         }
         return deleteByIndexSorted(index);
     }
 
-    public boolean deleteByIndexSorted(int index){
+    public T deleteByIndexSorted(int index){
         if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
         }
-
+        T removed = array[index];
         for(int i = index; i < size-1; i++){
             array[i] = array[i+1];
         }
@@ -108,21 +130,22 @@ public class DynamicArray<T extends Comparable<T>> {
         size--;
         array[size] = null;
         halveCapacity();
-        return true;
+        return removed;
     }
 
-    public boolean deleteByIndexUnsorted(int index){
+    public T deleteByIndexUnsorted(int index){
         if(isEmpty()){
             throw new IllegalStateException("Array vazio.");
         }
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException("Índice fora dos limites do array.");
         }
+        T removed = array[index];
         array[index] = array[size-1];
         size--;
         array[size] = null;
         halveCapacity();
-        return true;
+        return removed;
     }
 
     public void traverse(Consumer<T> action){
