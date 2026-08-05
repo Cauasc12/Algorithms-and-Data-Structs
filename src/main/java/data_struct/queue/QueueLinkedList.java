@@ -43,5 +43,4 @@ public class QueueLinkedList<T extends Comparable<T>> {
         queue.clear();
     }
 
-
 }
