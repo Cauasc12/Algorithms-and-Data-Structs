@@ -1,7 +1,6 @@
 package data_struct.priority_queue;
 
 import data_struct.array.DynamicArray;
-import java.util.List;
 import java.util.Map;
 
 public class MaxHeap<T> {

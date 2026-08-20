@@ -1,7 +1,5 @@
 package data_struct.queue;
 
-import data_struct.array.DynamicArray;
-
 import java.util.NoSuchElementException;
 
 public class QueueStaticArray<T> {

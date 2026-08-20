@@ -1,6 +1,6 @@
 package data_struct.trees;
 
-public class DynamicTree<T> {
+public class DynamicBinaryTree<T> {
 
     private static class Node<E>{
 
@@ -34,13 +34,18 @@ public class DynamicTree<T> {
     }
 
     private Node<T> root;
+    private int size;
 
-    public DynamicTree(){
+    public DynamicBinaryTree(){
         this.root = null;
     }
 
     public boolean isEmpty(){
         return root == null;
+    }
+
+    public int getSize(){
+        return this.size;
     }
 
     private boolean hasLeftChild(Node<T> node){
@@ -128,6 +133,7 @@ public class DynamicTree<T> {
     public void insertRoot(T newData){
         if(isEmpty()){
             root = new Node<>(newData);
+            size++;
         }
         else{
             throw new RuntimeException("Árvore já foi criada!!");
@@ -145,6 +151,7 @@ public class DynamicTree<T> {
         }
         Node<T> newNode = new Node<>(newData, parent);
         parent.leftChild = newNode;
+        size++;
     }
 
     public void insertRight(T newData, T parentData){
@@ -158,6 +165,7 @@ public class DynamicTree<T> {
         }
         Node<T> newNode = new Node<>(newData, parent);
         parent.rightChild = newNode;
+        size++;
     }
 
     public T delete(T target){
@@ -186,6 +194,7 @@ public class DynamicTree<T> {
                 root = root.rightChild;
                 root.parent = null;
             }
+            size--;
             return target;
         }
 
@@ -197,6 +206,7 @@ public class DynamicTree<T> {
             else if(parent.rightChild == targetNode){
                 parent.rightChild = null;
             }
+            size--;
         }
 
         else if(numberOfChildrens(targetNode) == 1){
@@ -218,7 +228,7 @@ public class DynamicTree<T> {
             }
 
             childToKeep.parent = parent;
-
+            size--;
         }
 
         return targetNode.data;
